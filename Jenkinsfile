@@ -73,4 +73,9 @@ pipeline {
   environment {
     docker_username = 'euronames'
   }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
