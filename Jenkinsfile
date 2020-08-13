@@ -25,6 +25,10 @@ pipeline {
         }
 
         stage('_dockerize application_') {
+          
+          when {
+            branch 'master'
+          }
 
           environment {
             DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
