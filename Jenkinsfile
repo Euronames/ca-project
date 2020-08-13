@@ -69,8 +69,8 @@ pipeline {
             sh 'ssh -o StrictHostKeyChecking=no ubuntu@35.187.0.187 ca-project/ci/run.sh'}
         }
     }
+  }
   environment {
     docker_username = 'euronames'
   }
-}
 }
