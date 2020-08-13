@@ -19,7 +19,7 @@ pipeline {
             unstash 'code'
             sh 'tar czf - Application > archived.tar.gz'
             archiveArtifacts 'archived.tar.gz'
-            stash excludes: '.git', name: 'code'
+            stash(excludes: '.git', name: 'artifacts')
             deleteDir()
         }
       }
