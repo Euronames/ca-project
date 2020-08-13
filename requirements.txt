@@ -1,2 +1,3 @@
-l
-ls
+flask==1.1.2
+flask_sqlalchemy==2.4.4
+flask_wtf==0.14.3
