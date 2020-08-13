@@ -25,6 +25,11 @@ pipeline {
       }
 
         stage('_dockerize application_') {
+          agent {
+            docker {
+              image: 'python:latest'
+            }
+          }
             environment {
                 DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
             }
