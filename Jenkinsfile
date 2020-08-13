@@ -6,6 +6,7 @@ pipeline {
         skipDefaultCheckout(true)
       }
       steps {
+        sh 'echo hello'
         stash(excludes: '.git', name: 'code')
       }
     }
