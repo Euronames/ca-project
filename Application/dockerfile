@@ -6,4 +6,4 @@ RUN apt-get update &&\
     pip install -r home/requirements.txt
 
 ENTRYPOINT [ "python3"]
-CMD [ "/home/run.py" ] 
+CMD [ "/home/run.py"  ] 
