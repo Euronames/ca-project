@@ -73,3 +73,4 @@ pipeline {
     docker_username = 'euronames'
   }
 }
+}
