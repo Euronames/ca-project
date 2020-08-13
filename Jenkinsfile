@@ -27,7 +27,7 @@ pipeline {
         stage('_dockerize application_') {
           agent {
             docker {
-              image: 'python:latest'
+              image 'python:latest'
             }
           }
             environment {
