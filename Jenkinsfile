@@ -30,6 +30,10 @@ pipeline {
             branch 'master'
           }
 
+          options {
+            skipDefaultCheckout(true)
+          }
+
           environment {
             DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
           }
@@ -46,6 +50,10 @@ pipeline {
             docker {
               image 'python:latest'
             }
+          }
+
+          options {
+            skipDefaultCheckout(true)
           }
 
           steps {
