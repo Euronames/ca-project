@@ -37,6 +37,13 @@ pipeline {
                 sh 'ci/push-docker.sh'
             }
         }
+                stage('Test') {
+
+            steps {
+                unstash 'code' //unstash the repository code
+                sh 'ci/test.sh'
+            }
+        }
       }
     }
 
