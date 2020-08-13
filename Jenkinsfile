@@ -10,9 +10,8 @@ pipeline {
     stage('_create artifact_ and _dockerize application_') {
       parallel {
         stage('_create artifact_') {
-          agent {
-            any
-          }
+          agent any
+          
           options {
             skipDefaultCheckout(true)
           }
