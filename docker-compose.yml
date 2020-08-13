@@ -1,8 +1,6 @@
-version: '1'
+version: '3'
 services:
-    web:
-        build: .
+    flask:
+        image: euronames/flaskapplication
         ports:
-            - 
-        volumes:
-            - 
+            - 80:5000
