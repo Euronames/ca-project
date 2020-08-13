@@ -15,34 +15,40 @@ pipeline {
           options {
             skipDefaultCheckout(true)
           }
-        steps {
-            unstash 'code'
-            sh 'tar czf - Application > archived.tar.gz'
-            archiveArtifacts 'archived.tar.gz'
-            stash(excludes: '.git', name: 'artifacts')
-            deleteDir()
+          steps {
+              unstash 'code'
+              sh 'tar czf - Application > archived.tar.gz'
+              archiveArtifacts 'archived.tar.gz'
+              stash(excludes: '.git', name: 'artifacts')
+              deleteDir()
+          }
         }
-      }
 
         stage('_dockerize application_') {
 
-            environment {
-                DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
+          agent {
+            docker {
+              image 'python:latest'
             }
+          }
 
-            steps {
-                unstash 'code' //unstash the repository code
-                sh 'ci/build-docker.sh'
-                sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin' //login to docker hub with the credentials above
-                sh 'ci/push-docker.sh'
-            }
+          environment {
+            DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
+          }
+
+          steps {
+           unstash 'code' //unstash the repository code
+           sh 'ci/build-docker.sh'
+           sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin' //login to docker hub with the credentials above
+           sh 'ci/push-docker.sh'
+          }
         }
-                stage('Test') {
+        stage('Test') {
 
-            steps {
-                unstash 'code' //unstash the repository code
-                sh 'ci/test.sh'
-            }
+          steps {
+            unstash 'code' //unstash the repository code
+            sh 'ci/test.sh'
+          }
         }
       }
     }
