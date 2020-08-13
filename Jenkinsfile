@@ -63,6 +63,12 @@ pipeline {
         }
       }
     }
+    stage ('Deploy') {
+        steps{
+            sshagent (credentials: ['ubuntu'])
+            sh 'ssh -o StrictHostKeyChecking=no ubuntu@35.187.0.187 Application/run.py'
+        }
+    }
 
   }
   environment {
