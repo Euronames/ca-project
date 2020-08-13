@@ -1,2 +1,1 @@
-#!/bin/bash
-docker run -d  euronames/ca-project
+docker run -d euronames/ca-project
