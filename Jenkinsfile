@@ -10,25 +10,33 @@ pipeline {
     stage('_create artifact_ and _dockerize application_') {
       parallel {
         stage('_create artifact_') {
+          agent {
+            any
+          }
           options {
             skipDefaultCheckout(true)
           }
-          steps {
-            sh 'echo "_create artifact_"'
-          }
+        steps {
+            unstash 'code'
+            sh 'tar czf - /Application > archived.tar.gz'
+            archiveArtifacts 'archived.tar.gz'
+            stash excludes: '.git', name: 'code'
+            deleteDir()
         }
+      }
 
         stage('_dockerize application_') {
-          options {
-            skipDefaultCheckout(true)
-          }
-          steps {
-            sh 'echo "_dockerize application_"'
-            sh '''echo "2"
-'''
-          }
-        }
+            environment {
+                DOCKERCREDS = credentials('docker_login') //use the credentials just created in this stage
+            }
 
+            steps {
+                unstash 'code' //unstash the repository code
+                sh 'ci/build-docker.sh'
+                sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin' //login to docker hub with the credentials above
+                sh 'ci/push-docker.sh'
+            }
+        }
       }
     }
 
