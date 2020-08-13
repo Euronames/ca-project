@@ -12,27 +12,30 @@ pipeline {
     }
 
     stage('_create artifact_ and _dockerize application_') {
-      parallel { 
+      parallel {
+        stage('_create artifact_') {
+          options {
+            skipDefaultCheckout(true)
+          }
+          steps {
+            sh 'echo "_create artifact_"'
+          }
+        }
 
-      stage('_create artifact_'){
-      options {
-        skipDefaultCheckout(true)
-      }
-      steps{
-        sh 'echo "_create artifact_"'
-      }
-      }
+        stage('_dockerize application_') {
+          options {
+            skipDefaultCheckout(true)
+          }
+          steps {
+            sh 'echo "_dockerize application_"'
+            sh '''echo "2"
+'''
+          }
+        }
 
-      stage('_dockerize application_'){
-      options {
-        skipDefaultCheckout(true)
-      }
-      steps{
-        sh 'echo "_dockerize application_"'
-      }
-      }
       }
     }
+
   }
   environment {
     docker_username = 'euronames'
