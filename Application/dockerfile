@@ -5,4 +5,5 @@ COPY . /home/
 RUN apt-get update &&\
     pip install -r home/requirements.txt
 
-ENTRYPOINT [ "python3", "/home/run.py" ] 
+ENTRYPOINT [ "python3"]
+CMD [ "/home/run.py" ] 
