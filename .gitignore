@@ -6,3 +6,7 @@ __pycache__/
 # Ignore both app and test db
 app.db
 test.db
+
+#For the love of god whyyy!?!?!
+testkey
+
