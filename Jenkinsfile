@@ -2,11 +2,7 @@ pipeline {
   agent any
   stages {
     stage('clone_down') {
-      options {
-        skipDefaultCheckout(true)
-      }
       steps {
-        sh 'echo hello'
         stash(excludes: '.git', name: 'code')
       }
     }
